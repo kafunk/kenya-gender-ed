@@ -1,0 +1,141 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset=utf-8 />
+  <title>Mapping Gender Equality in Kenya Primary Schools</title>
+  <meta name='viewport' content='initial-scale=1,maximum-scale=1,user-scalable=no' />
+
+  <link href='https://api.mapbox.com/mapbox-assembly/v0.21.2/assembly.min.css' rel='stylesheet'>
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.3.1/dist/leaflet.css"cjgmqqkiq004r2rqwihmtdj04 />
+  <link href="https://fonts.googleapis.com/css?family=Quicksand:400,500,700|Raleway:400,600" rel="stylesheet">
+  <link href='css/styles.css' rel='stylesheet' />
+
+</head>
+
+<body>
+  <div class='flex-parent viewport-full relative scroll-hidden'>
+
+    <div id='sidebar' class='flex-child w-full w300-ml absolute static-ml left bottom bg-dark'>
+
+      <div id="about" class='flex-parent flex-parent--column viewport-third h-full-ml hmax-full scroll-auto'>
+
+        <div class='flex-child flex-child--grow bg-accent px18 py12'>
+          <h1 class='txt-h1'>
+            Gender Equality in Kenya Primary Schools
+          </h1>
+          <h2 class="align-r txt-h3">by grade &amp; by county <span class="txt-accent ml6 pl12 my-border-l">2014</span></h2>
+          <p>
+            This map offers a visual comparison of the number of
+            <span class="txt-bold px3 girls-txt">girl</span> vs
+            <span class="txt-bold px3 boys-txt">boy</span> students enrolled in primary school grades 1 &ndash; 8 across Kenya counties.
+          </p>
+          <p>
+            Each colored ring is sized in proportion to the number of students of the respective gender enrolled in the currently selected grade.
+          </p>
+          <p>
+            Data originally released in 2016 by the Kenya National Bureau of Statistics. Accessed May 2018.
+          </p>
+        </div>
+
+        <footer class='flex-child txt-m'>
+          <div class="flex-parent flex-parent--column flex-parent--center-main">
+            <div class="flex-child">
+              <p class="align-l pr120 pr36-ml">Explore the raw
+                <a target='_blank' class='link' href='https://icta-kenyaopendata.opendata.arcgis.com/datasets/national-boys-and-girls-enrollments-per-class-for-primary-school-education'>data</a> thanks to the Kenya Open Data Initiative.
+              </p>
+            </div>
+            <div id="compass-icon" class="flex-child">
+              <img src='svg/compass-rose.svg'>
+            </div>
+            <div class="flex-child">
+              <p class="align-r pl120 pl24-ml">Map authored by
+                <a target='_blank' class='link' href='https://kafunk.github.io'>Katrina Funk</a> in partial fulfilment of MAP 673 // <a target="_blank" class='link' href="https://newmapsplus.uky.edu">New Maps Plus</a>.
+              </p>
+            </div>
+           </div>
+        </footer>
+      </div>
+    </div>
+
+    <div class='flex-child flex-child--grow viewport-twothirds viewport-full-ml'>
+
+      <!-- map -->
+      <div id="map" class='viewport-twothirds viewport-full-ml'>
+      </div>
+
+      <!-- ui slider -->
+      <div id='slider' class='range range--s w180 w240-mm mx0 my0 mx12-mm my12-mm px12 py18 round-tr round-bl-mm round-tl-mm border-mm border--gray'>
+        <input type='range' min="1", max="8", value="1", step="1" />
+      </div>
+
+      <!-- slider text -->
+      <div id="slider-txt" class="wmin120 wmin0-mm mx0 my0 mx12-mm px12 py6 round-tr round-bl-mm round-tl-mm border-mm border--gray">
+        <p class="txt-m align-center txt-spacing2 align-l-mm txt-bold">Grade:
+          <span>1</span> <!-- initially set to 1 -->
+        </p>
+      </div>
+
+      <!-- legend -->
+      <div id='legend' class='wmin180 mx0 my0 px6 py6 mx12-mm my12-mm round-tl round-bl-mm round-tr-mm relative border-mm border--gray'>
+        <h4 class='round-tl round-tr-mm align-center bg-accent txt-h4 px12 px18-mm py18 wmin180'>Number of students</h4>
+        <div class="legend-circles-parent pt18 pb12">
+          <div class='ml6-mm mt12 mb0 align-center legend-circles relative'>
+            <div class="legend-large absolute"></div>
+            <div class="legend-small absolute"></div>
+            <div class="legend-large-label txt-m absolute"></div> <!-- legend-large-label accessed dynamically through js; keep! -->
+            <div class="legend-small-label txt-m absolute"></div> <!-- legend-small-label accessed dynamically through js; keep! -->
+          </div>
+        </div>
+      </div>
+
+      <!-- ui info panel -->
+      <div id='info' class='round-bold pt6 pb12 pl3 border border--gray absolute w200'>
+        <div>
+          <h3 class="mx12 mt6 txt-l txt-uppercase txt-bold">
+            <span></span> County
+          </h3>
+          <ul class='mx0 txt-ul'>
+            <li class="girls girls-txt txt-li">
+              <span>Girls</span> in
+              <span class="grade"></span>:
+              <span></span>
+            </li>
+            <li class="boys boys-txt txt-li">
+              <span>Boys</span> in
+              <span class="grade"></span>:
+              <span></span>
+            </li>
+          </ul>
+
+        </div>
+        <!-- Line divider -->
+        <hr class="txt-hr" />
+
+        <!-- Sparkline chart -->
+        <div>
+          <h4 class="txt-em ml12">Trend Over Grades 1 &ndash; 8</h4>
+          <ul class="mx0 py6 txt-ul">
+            <li class="girlspark pb6"></li>
+            <li class="boyspark"></li>
+          </ul>
+        </div>
+
+      </div>
+
+    </div>
+  </div>
+
+  <!-- load Assembly, jQuery, and Omnivore JS here -->
+  <script async defer src='https://api.mapbox.com/mapbox-assembly/v0.21.2/assembly.js'></script>
+  <!-- <script src="https://unpkg.com/leaflet@1.3.1/dist/leaflet.js"></script> -->
+  <script src='https://api.mapbox.com/mapbox.js/v3.1.1/mapbox.js'></script>
+  <script src='https://api.tiles.mapbox.com/mapbox.js/plugins/leaflet-omnivore/v0.3.1/leaflet-omnivore.min.js'></script>
+  <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-sparklines/2.1.2/jquery.sparkline.min.js"></script>
+  <!-- Custom script -->
+  <script src='js/app.js'></script>
+
+</body>
+
+</html>

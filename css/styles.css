@@ -1,0 +1,100 @@
+/* custom CSS rules */
+
+body {
+  font-family: "Raleway", sans-serif;
+}
+h1,h2,h3,h4,h5,h6 {
+  font-family: "Quicksand", sans-serif;
+}
+ul li {
+  list-style: none;
+  margin: 3px 12px;
+}
+footer p {
+  color: #eee;
+  margin: 6px 12px;
+}
+
+#sidebar h1 {
+  color: #3d3d3d;
+  font-weight: 700;
+}
+#sidebar h2 {
+  color: #ddd;
+  padding-bottom:18px;
+}
+#sidebar footer a {
+  color: #e7b964;
+}
+#sidebar a:hover {
+  /* opacity: 0.8; */
+  color: #b04972;
+}
+#about p {
+  padding:6px;
+}
+#legend h4 {
+  font-weight:700;
+  margin: -6px;
+}
+#legend hr {
+  width: 78px;
+  position: absolute;
+  top: -6px;
+  left: 56px;
+  border: 1px dashed #999;     /* overwrite assembly.css rule */
+  margin-top: 6px;            /* overwrite assembly.css rule */
+}
+
+#map {
+  background-color: #eee;
+}
+#compass-icon {
+  width: 32px;
+  margin: -12px auto;
+  padding-top:3px;
+}
+#info {
+  z-index: 1000;
+}
+#slider, #slider-txt, #legend, #info {
+  background-color: #fafafa;
+  font-family: Raleway;
+  font-weight: 600;
+  box-shadow: 1px 1px 1px 1px #3d3d3d;
+}
+#legend .legend-small {
+  margin-top:-2px;
+}
+
+/* display none for layout but be careful of license restrictions */
+.mapbox-logo, .leaflet-control-attribution {
+  display: none;
+}
+/* custom styles for legend symbols */
+.legend-large, .legend-small {
+  border-radius: 50%;
+  border: 3px solid #b04972;
+}
+.bg-accent {
+  background-color: #e7b964;
+}
+.bg-dark {
+  background-color: #3d3d3d;
+}
+.boys-txt {
+  color: #4a3694;
+}
+.girls-txt {
+  color: #f46348;
+}
+.leaflet-control-zoom {
+  opacity: 0.9;
+}
+.txt-accent {
+  color: #b04972;
+  font-weight: 700;
+}
+.my-border-l {
+  border-left: 3px dotted #eee;
+}
